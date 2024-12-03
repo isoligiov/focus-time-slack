@@ -1,4 +1,4 @@
-const NOTIFICATION_POST_SLACK_API = 'https://hooks.slack.com/services/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';
+const NOTIFICATION_POST_SLACK_API = 'https://hooks.slack.com/services/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';
 
 async function hitPostApi(url, body) {
   const response = await fetch(url, {
