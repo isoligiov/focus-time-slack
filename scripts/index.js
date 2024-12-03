@@ -19,8 +19,8 @@ let previousState = {};
         }
           
         try {
-          const header = chatItem.querySelector('.p-channel-sidebar__name').textContent
-          const badgeElement = chatItem.querySelector('.p-channel-sidebar__badge').textContent
+          const header = chatItem.querySelector('.p-channel_sidebar__name').textContent
+          const badgeElement = chatItem.querySelector('.p-channel_sidebar__badge')
           let badge = null
           if(badgeElement) badge = badgeElement.textContent
           else if(SENSITIVE_CHANNELS.includes(header)) badge = 'channel'
