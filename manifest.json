@@ -7,7 +7,6 @@
     "default_icon": "assets/images/icon.png"
   },
   "host_permissions": [
-    "http://5.133.9.244:*/*",
     "https://*/*",
     "https://*/"
   ],
@@ -31,7 +30,7 @@
         "scripts/index.js"
       ],
       "matches": [
-        "https://teams.microsoft.com/*"
+        "https://app.slack.com/*"
       ]
     }
   ],
