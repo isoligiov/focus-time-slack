@@ -3,7 +3,6 @@ const SENSITIVE_CHANNELS = [
 ]
 
 let previousState = {};
-let initialState = true
 
 (async () => {
   while(true) {
@@ -29,22 +28,19 @@ let initialState = true
             currentState[header] = { badge }
         } catch(err) {}
       }
-      if(!initialState) {
-        let text = ''
-        for(let header in currentState) {
-          if(currentState[header].badge !== previousState[header].badge) {
-            text += `*${header} @ ${PROJECT_NAME}* sent ${badge} message on Slack\n`
-          }
-        }
-        if(text.length > 0) {
-          await chrome.runtime.sendMessage({
-            message_type: 'sendUpdate',
-            text,
-          })
+      let text = ''
+      for(let header in currentState) {
+        if(currentState[header].badge !== previousState[header].badge) {
+          text += `*${header} @ ${PROJECT_NAME}* sent ${badge} message on Slack\n`
         }
       }
+      if(text.length > 0) {
+        await chrome.runtime.sendMessage({
+          message_type: 'sendUpdate',
+          text,
+        })
+      }
       previousState = currentState
-      initialState = false
     } catch(err) {
     }
     await sleep(1000)
