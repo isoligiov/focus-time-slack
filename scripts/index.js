@@ -30,7 +30,7 @@ let previousState = {};
       }
       let text = ''
       for(let header in currentState) {
-        if(currentState[header].badge !== previousState[header].badge) {
+        if(currentState[header].badge !== previousState[header]?.badge) {
           text += `*${header} @ ${PROJECT_NAME}* sent ${badge} message on Slack\n`
         }
       }
