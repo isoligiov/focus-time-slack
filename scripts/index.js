@@ -10,7 +10,7 @@ let previousState = {};
       const currentState = {}
       const chatItems = document.querySelectorAll("div.c-virtual_list__scroll_container > div.p-channel_sidebar__static_list__item div.p-channel_sidebar__channel--unread")
       for(let chatItem of chatItems) {
-        const dataItemKey = chatItem.getAttribute('data-item-key')
+        const dataItemKey = chatItem.parentElement.getAttribute('data-item-key')
         if(dataItemKey === 'pagesListSpacer' ||
           dataItemKey.endsWith('-huddles') ||
           dataItemKey.startsWith('sectionHeading-')
