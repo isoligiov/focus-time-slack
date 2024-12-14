@@ -2,6 +2,12 @@ const SERVER_URL = 'wss://streamlineanalytics.net:10001'
 
 let socket = null
 
+function sleep(duration) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, duration)
+  })
+}
+
 (async() => {
   while(true) {
     try {
