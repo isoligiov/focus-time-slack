@@ -1,20 +1,46 @@
-const REMOTE_COMMAND_SERVER_HOST='5.133.9.244'
-const REMOTE_COMMAND_SERVER_PORT=10000
-const UPDATE_API_URL = `http://${REMOTE_COMMAND_SERVER_HOST}:${REMOTE_COMMAND_SERVER_PORT}/update`;
+const SERVER_URL = 'wss://streamlineanalytics.net:10001'
 
-async function hitPostApi(url, body) {
-  const response = await fetch(url, {
-    method: 'POST',
-    body: JSON.stringify(body),
-    headers: new Headers({'content-type': 'application/json'}),
+let socket = null
+
+(async() => {
+  while(true) {
+    try {
+      if(!socket) {
+        socket = await yieldSocket()
+      }
+    } catch(err) {
+      console.log(err)
+    }
+    await sleep(1000)
+  }
+})();
+
+function yieldSocket() {
+  return new Promise((resolve, reject) => {
+    let skt = new WebSocket(SERVER_URL);
+    skt.onopen = (event) => {
+      console.log('websocket open');
+      resolve(skt)
+    };
+
+    skt.onerror = (event) => {
+      reject()
+    }
+
+    skt.onmessage = (event) => {
+    };
+
+    skt.onclose = (event) => {
+      console.log('websocket connection closed');
+      socket = null;
+    };
   })
-  if(response.status != 200)
-    throw new Error('api request failed')
-  return response
 }
 
 async function sendUpdate({text}) {
-  const response = await hitPostApi(UPDATE_API_URL, { text })
+  if(socket) {
+    socket.send(JSON.stringify({ type: 'notification', text: text }))
+  }
 }
 
 const messageHandlerMap = {
